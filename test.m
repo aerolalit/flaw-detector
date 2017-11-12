@@ -59,12 +59,12 @@ else
 end
 
 if find_outliers
-    trouble = [3, 7, 25, 96, 114, 212, 265, 330, 374, 378, 411, 451, 632];
+    trouble = [212, 240, 330, 512, 632];
     for n = trouble %1:size(trouble,2)
         movingReg = load_and_align(mean_img, n, 0.5); %330 2560
         fprintf('Images/ID%04d.tif\n',n);
         diff = calculate_score(mean_img, movingReg, image_weight);
-        diff(diff < 150) = 0; % 185
+        diff(diff < 185) = 0;
         outliers = bwmorph(uint8(diff) .* mask, 'shrink');
 
         if sum(outliers(:)) > 0
